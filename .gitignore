@@ -1,0 +1,6 @@
+# Security
+.env
+
+# Can be generates
+node_modules/
+lib/prisma-client
