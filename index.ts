@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import Routes from "./app/routes/api.js";
 
-dotenv.config();
+dotenv.config({ quiet: true }); // TODO : Créer un logger plus tard
 
 const APP = express();
 const PORT = process.env.PORT || 3000;

@@ -9,9 +9,20 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
 model Product {
-  id        Int     @id @default(autoincrement())
-  code      String  @unique
-  title     String
-  label_title     String
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  title       String
+  label_title String
+  categoryId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category    Category?  @relation(fields: [categoryId], references: [id])
 }
