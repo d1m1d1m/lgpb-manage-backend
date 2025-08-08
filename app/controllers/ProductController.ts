@@ -28,7 +28,7 @@ export default class ProductController
     try {
       const codeToFind = req.params.id;
       const productFound = await prisma.product.findFirst({
-        where: { code: codeToFind }
+        where: { sku: codeToFind }
       });
 
       return res.json({
@@ -54,9 +54,10 @@ export default class ProductController
     try {
       const newProduct = await prisma.product.create({
         data: {
-          code: "3423720008175",
-          title: "BARRE CEREALES ABRICOT X 6 (125G)",
-          label_title: ''
+          sku: "3423720008175",
+          name: "BARRE CEREALES ABRICOT X 6 (125G)",
+          sales_label: 's',
+          tag_label: 's',
         }
       });
 

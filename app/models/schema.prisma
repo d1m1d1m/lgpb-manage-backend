@@ -10,19 +10,45 @@ datasource db {
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String
-  products Product[]
+  id            Int           @id @default(autoincrement())
+  name          String
+  sub_categories SubCategory[]
+  products      Product[]
+
+  // Keep a trace for changing et creating
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model SubCategory {
+  id         Int        @id @default(autoincrement())
+  name       String
+  category_id Int
+  category   Category   @relation(fields: [category_id], references: [id])
+  products   Product[]
+
+  // Keep a trace for changing et creating
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Product {
   id          Int       @id @default(autoincrement())
-  code        String    @unique
-  title       String
-  label_title String
-  categoryId  Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  
+  // Informations
+  sku        String    @unique
+  name       String
+  sales_label String
+  tag_label   String
 
-  category    Category?  @relation(fields: [categoryId], references: [id])
+  // Keep a trace for changing et creating
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relationals
+  category_id        Int?
+  category          Category?     @relation(fields: [category_id], references: [id])
+
+  subcategory_id     Int?
+  subcategory       SubCategory?  @relation(fields: [subcategory_id], references: [id])
 }
